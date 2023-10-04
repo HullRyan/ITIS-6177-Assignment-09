@@ -1,57 +1,17 @@
-/**
- * Loads environment variables from a .env file
- * @requires dotenv
- */
 require("dotenv").config();
-
-/**
- * Express web framework for Node.js
- * @requires express
- */
 const express = require("express");
-
-/**
- * Swagger documentation generator for Node.js
- * @requires swagger-jsdoc
- */
 const swaggerJsDoc = require("swagger-jsdoc");
-
-/**
- * Swagger UI for Express
- * @requires swagger-ui-express
- */
 const swaggerUi = require("swagger-ui-express");
-
-/**
- * CORS middleware for Express
- * @requires cors
- */
 const cors = require("cors");
-
-/**
- * Body parsing middleware for Express
- * @requires body-parser
- */
 const bodyParser = require("body-parser");
-
-/**
- * AWS SDK for JavaScript
- * @requires aws-sdk
- */
 const aws = require("aws-sdk");
 
-/**
- * AWS Lambda client
- */
 const lambda = new aws.Lambda({
 	region: "us-east-1",
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
-/**
- * Swagger options
- */
 const options = {
 	definition: {
 		openapi: "3.0.0",
@@ -70,35 +30,14 @@ const options = {
 	},
 	apis: ["./app.js"],
 };
-
-/**
- * Express app
- */
 const app = express();
-
-/**
- * Port number
- */
 const port = 3004;
-
-/**
- * JSON body parsing middleware
- */
 const jsonParser = bodyParser.json();
 
-/**
- * Swagger documentation
- */
 const specs = swaggerJsDoc(options);
 
-/**
- * Enable CORS for all routes
- */
 app.use(cors());
 
-/**
- * Serve Swagger UI at /api-docs
- */
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 /**
@@ -143,9 +82,6 @@ app.get("/say", (req, res) => {
 	});
 });
 
-/**
- * Start the server
- */
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });
