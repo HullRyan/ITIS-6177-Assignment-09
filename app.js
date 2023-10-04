@@ -125,6 +125,10 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
  */
 app.get("/say", (req, res) => {
 	const keyword = req.query.keyword;
+	if (!keyword) {
+		res.status(400).send({ error: "Bad request" });
+		return;
+	}
 	params = {
 		FunctionName: "say",
 		InvocationType: "RequestResponse",
